@@ -23,43 +23,15 @@
       --bg-card: #ffffff;       
       --shadow: rgba(0,0,0,0.1);
       --auth-bg: #d81b60;       
-      --danger: #ffcdd2; /* Warna merah muda untuk tombol hapus */
-    }
-
-    /* Tema Biru */
-    body.theme-blue {
-      --primary: #1e88e5;
-      --primary-dark: #1565c0;
-      --accent: #bbdefb;
-      --auth-bg: #1e88e5;
       --danger: #ffcdd2;
     }
 
-    /* Tema Hijau */
-    body.theme-green {
-      --primary: #43a047;
-      --primary-dark: #2e7d32;
-      --accent: #c8e6c9;
-      --auth-bg: #43a047;
-      --danger: #ffcdd2;
-    }
-
-    /* Tema Gelap (Dark Mode) */
-    body.theme-dark {
-      --primary: #212121;
-      --primary-dark: #000000;
-      --accent: #424242;
-      --text-main: #e0e0e0;
-      --text-sec: #aaaaaa;
-      --bg-app: #121212;
-      --bg-card: #1e1e1e;
-      --shadow: rgba(255,255,255,0.05);
-      --auth-bg: #212121;
-      --danger: #ef5350;
-    }
+    body.theme-blue { --primary: #1e88e5; --primary-dark: #1565c0; --accent: #bbdefb; --auth-bg: #1e88e5; --danger: #ffcdd2; }
+    body.theme-green { --primary: #43a047; --primary-dark: #2e7d32; --accent: #c8e6c9; --auth-bg: #43a047; --danger: #ffcdd2; }
+    body.theme-dark { --primary: #212121; --primary-dark: #000000; --accent: #424242; --text-main: #e0e0e0; --text-sec: #aaaaaa; --bg-app: #121212; --bg-card: #1e1e1e; --shadow: rgba(255,255,255,0.05); --auth-bg: #212121; --danger: #ef5350; }
 
     /* =========================================
-       2. RESET DASAR CSS
+       2. RESET DASAR (LAYOUT FIX)
        ========================================= */
     * { 
       box-sizing: border-box; 
@@ -68,236 +40,67 @@
       -webkit-tap-highlight-color: transparent; 
     }
     
-    body { 
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* Kunci scroll browser utama */
       font-family: 'Roboto', sans-serif; 
       background-color: var(--bg-app); 
       color: var(--text-main); 
-      height: 100vh; 
-      display: flex; 
-      flex-direction: column; 
-      overflow: hidden; 
-      transition: background 0.3s ease; 
     }
 
-    /* =========================================
-       3. HALAMAN LOGIN / REGISTER
-       ========================================= */
-    #view-auth {
-      position: absolute; 
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-color: var(--auth-bg);
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center; 
-      align-items: center;
-      z-index: 200; 
-      padding: 30px; 
-      text-align: center; 
-      color: white;
-      transition: background 0.3s ease;
-    }
-    
-    .auth-title { 
-      font-family: 'Dancing Script', cursive; 
-      font-size: 56px; 
-      margin-bottom: 5px; 
-    }
-    
-    .auth-subtitle { 
-      font-size: 14px; 
-      margin-bottom: 40px; 
-      opacity: 0.9; 
-    }
-    
-    .auth-input {
-      width: 100%; 
-      max-width: 280px; 
-      background: rgba(255,255,255,0.95) !important; /* Fix background putih */
-      border: none; 
-      border-radius: 30px;
-      padding: 15px 20px; 
-      font-size: 16px; 
-      margin-bottom: 15px; 
-      outline: none; 
-      color: #333; 
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    .btn-auth {
-      width: 100%; 
-      max-width: 280px; 
-      background: rgba(0,0,0,0.2); 
-      color: white; 
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 15px; 
-      border-radius: 30px; 
-      font-weight: bold; 
-      font-size: 16px; 
-      cursor: pointer; 
-      margin-top: 10px;
-    }
-    
-    .link-text { 
-      margin-top: 25px; 
-      font-size: 13px; 
-      cursor: pointer; 
-      text-decoration: underline; 
-      opacity: 0.8; 
-    }
-
-    /* =========================================
-       4. SIDEBAR MENU (GESER DARI KIRI)
-       ========================================= */
-    #sidebar-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5); 
-      z-index: 150; 
-      display: none; 
-      opacity: 0; 
-      transition: opacity 0.3s;
-    }
-    
-    #sidebar {
-      position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-      background: var(--bg-card); 
-      z-index: 160;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-      transition: left 0.3s ease; 
-      display: flex; 
-      flex-direction: column;
-    }
-    
-    #sidebar.open { left: 0; }
-    
-    .sidebar-header {
-      background: var(--primary); 
-      color: white; 
-      padding: 30px 20px;
-      display: flex; 
-      flex-direction: column; 
-      align-items: flex-start;
-    }
-    
-    .user-avatar { font-size: 60px; margin-bottom: 10px; }
-    .sidebar-username { font-size: 20px; font-weight: bold; }
-    .sidebar-info { font-size: 12px; opacity: 0.8; margin-top: 5px; }
-
-    .sidebar-menu { 
-      flex: 1; 
-      overflow-y: auto; 
-      padding: 10px 0; 
-    }
-    
-    .menu-item {
-      padding: 15px 20px; 
-      display: flex; 
-      align-items: center; 
-      gap: 15px;
-      cursor: pointer; 
-      color: var(--text-main); 
-      font-weight: 500;
-    }
-    .menu-item:active { background: var(--shadow); }
-    .menu-item .material-icons { color: var(--text-sec); }
-    
-    .menu-header { 
-      font-size: 12px; 
-      color: var(--text-sec); 
-      padding: 15px 20px 5px; 
-      text-transform: uppercase; 
-      font-weight: bold; 
-    }
-
-    /* =========================================
-       5. APLIKASI UTAMA (HEADER & LIST)
-       ========================================= */
     #main-app { 
       display: none; 
+      width: 100%;
       height: 100%; 
       flex-direction: column; 
+      position: absolute; top: 0; left: 0;
     }
-    
+
+    /* =========================================
+       3. HEADER ATAS (STATIS)
+       ========================================= */
     .header {
       background-color: var(--primary); 
       color: white; 
-      padding: 15px 20px;
+      padding: 0 15px; 
+      height: 60px; /* Tinggi Tetap */
       display: flex; 
       justify-content: space-between; 
       align-items: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-      z-index: 10; 
+      z-index: 20; /* Layer paling atas */
+      flex-shrink: 0; 
       transition: background 0.3s;
     }
     
-    /* Judul Header di tengah */
-    .header h2 { 
-      font-size: 18px; 
-      font-weight: 500; 
-      flex: 1; 
-      text-align: center; 
-    }
-    
-    /* Grup tombol di kanan header */
-    .header-actions {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-    
-    .icon-btn { cursor: pointer; padding: 5px; }
-
-    /* List View (Daftar Catatan) */
-    #view-list { 
-      flex: 1; 
-      overflow-y: auto; 
-      padding-bottom: 90px; 
-    }
-    
-    .list-item {
-      background: var(--bg-card); 
-      border-bottom: 1px solid var(--shadow);
-      display: flex; 
-      padding: 15px; 
-      gap: 15px; 
-      cursor: pointer; 
-      align-items: center;
-    }
-    .list-item:active { opacity: 0.9; }
-    
-    .date-box {
-      width: 50px; height: 50px; 
-      background: var(--accent);
-      display: flex; flex-direction: column; 
-      text-align: center; justify-content: center;
-      border-radius: 8px; flex-shrink: 0; 
-      color: var(--primary);
-    }
-    .date-month { font-size: 10px; font-weight: bold; text-transform: uppercase; }
-    .date-day { font-size: 20px; font-weight: bold; line-height: 1; }
-    
-    .content-box { flex: 1; overflow: hidden; }
-    .content-title { color: var(--primary); font-weight: bold; font-size: 16px; margin-bottom: 4px; }
-    .content-preview { color: var(--text-sec); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .header h2 { font-size: 18px; font-weight: 500; flex: 1; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .header-actions { display: flex; gap: 5px; align-items: center; }
+    .icon-btn { cursor: pointer; padding: 8px; border-radius: 50%; }
+    .icon-btn:active { background: rgba(255,255,255,0.2); }
 
     /* =========================================
-       6. HALAMAN TULIS (EDIT / BUAT BARU)
+       4. AREA FORM TANGGAL & JUDUL (STATIS)
        ========================================= */
-    #view-write { 
-      display: none; 
-      flex-direction: column; 
-      height: 100%; 
-      background: var(--primary); 
+    /* Ini area baru: Tanggal & Judul dikunci di bawah header, TIDAK ikut scroll */
+    .static-controls {
+      background-color: var(--bg-app);
+      padding: 15px 15px 0 15px; /* Padding atas kiri kanan */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0; /* Dilarang mengecil */
+      z-index: 10;
+      box-shadow: 0 4px 5px -5px rgba(0,0,0,0.1); /* Bayangan tipis ke bawah */
     }
-    
-    .write-container { 
-      padding: 20px; 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 15px; 
-      background: var(--bg-app); 
-      border-radius: 20px 20px 0 0; 
+
+    .input-date-wrapper { 
+      background: var(--bg-card); 
+      border-radius: 12px; 
+      padding: 12px; 
+      display: flex; align-items: center; gap: 10px; 
+      color: var(--primary); font-weight: 500; 
+      box-shadow: 0 1px 3px var(--shadow); 
     }
     
     .card { 
@@ -306,89 +109,119 @@
       padding: 15px; 
       box-shadow: 0 1px 3px var(--shadow); 
     }
+
+    input[type="date"] { border: none; font-family: 'Roboto'; font-size: 16px; color: var(--text-main); outline: none; flex: 1; background: transparent; }
+    .card input[type="text"] { width: 100%; border: none; outline: none; font-size: 18px; font-weight: 500; color: var(--text-main); background: transparent; }
+
+    /* =========================================
+       5. AREA SCROLL (HANYA KERTAS / LIST)
+       ========================================= */
     
-    .input-date-wrapper {
-      background: var(--bg-card); 
-      border-radius: 12px; 
-      padding: 12px;
-      display: flex; 
-      align-items: center; 
-      gap: 10px; 
-      color: var(--primary); 
-      font-weight: 500;
-      box-shadow: 0 1px 3px var(--shadow);
-    }
-    
-    /* Input Styling */
-    input[type="date"] { 
-      border: none; font-family: 'Roboto'; font-size: 16px; 
-      color: var(--text-main); outline: none; flex: 1; background: transparent; 
-    }
-    
-    .card input[type="text"] { 
-      width: 100%; border: none; outline: none; 
-      font-size: 18px; font-weight: 500; 
-      color: var(--text-main); background: transparent; 
-    }
-    
-    /* Kertas Bergaris */
-    .paper-container {
-      background: var(--bg-card); 
-      border-radius: 12px; 
+    /* Container List & Write */
+    .view-container {
       flex: 1; 
+      display: flex; 
+      flex-direction: column; 
       position: relative; 
       overflow: hidden; 
-      display: flex; 
-      box-shadow: 0 1px 3px var(--shadow);
-    }
-    
-    textarea {
-      width: 100%; height: 100%; 
-      border: none; outline: none; resize: none; 
-      font-size: 16px; line-height: 30px;
-      padding: 15px; background: transparent; 
-      color: var(--text-main);
-      background-image: linear-gradient(var(--shadow) 1px, transparent 1px);
-      background-size: 100% 30px;
     }
 
-    /* Tombol Tambah (+) Melayang */
-    .fab {
-      position: fixed; bottom: 25px; right: 25px;
-      background-color: var(--primary); 
-      color: white;
-      width: 60px; height: 60px; 
-      border-radius: 50%;
-      display: flex; justify-content: center; align-items: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      cursor: pointer; z-index: 20; 
-      font-size: 30px; 
-      transition: background 0.3s;
+    /* Scroll Area untuk List */
+    .scroll-content-list {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 90px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Scroll Area KHUSUS Kertas Tulis */
+    .scroll-content-paper {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px; /* Jarak kertas dari pinggir */
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Kertas Bergaris */
+    .paper-container { 
+      background: var(--bg-card); 
+      border-radius: 12px; 
+      flex: 1; /* Memenuhi sisa ruang scroll */
+      min-height: 100%; /* Agar kertas minimal setinggi layar sisa */
+      position: relative; 
+      display: flex; 
+      box-shadow: 0 1px 3px var(--shadow); 
+    }
+    
+    textarea { 
+      width: 100%; 
+      height: 100%; /* Isi penuh kertas */
+      min-height: 400px; /* Minimal tinggi agar bisa discroll kalau konten dikit */
+      border: none; outline: none; resize: none; 
+      font-size: 16px; line-height: 30px; padding: 15px; 
+      background: transparent; color: var(--text-main); 
+      background-image: linear-gradient(var(--shadow) 1px, transparent 1px); 
+      background-size: 100% 30px; /* Garis kertas */
+      margin-top: 5px; /* Sedikit jarak dari atas kertas */
     }
 
     /* =========================================
-       7. LOADING OVERLAY
+       6. HALAMAN LOGIN
        ========================================= */
-    #loading {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); z-index: 300;
-      justify-content: center; align-items: center; flex-direction: column; color: white;
+    #view-auth {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: var(--auth-bg);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      z-index: 200; padding: 30px; text-align: center; color: white;
+      transition: background 0.3s;
     }
-    .spinner { 
-      border: 4px solid rgba(255,255,255,0.3); 
-      border-top: 4px solid white; 
-      border-radius: 50%; width: 40px; height: 40px; 
-      animation: spin 1s linear infinite; 
-    }
+    .auth-title { font-family: 'Dancing Script', cursive; font-size: 56px; margin-bottom: 5px; }
+    .auth-subtitle { font-size: 14px; margin-bottom: 40px; opacity: 0.9; }
+    .auth-input { width: 100%; max-width: 280px; background: rgba(255,255,255,0.95) !important; border: none; border-radius: 30px; padding: 15px 20px; font-size: 16px; margin-bottom: 15px; outline: none; color: #333; text-align: center; }
+    .btn-auth { width: 100%; max-width: 280px; background: rgba(0,0,0,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 15px; border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    .link-text { margin-top: 25px; font-size: 13px; cursor: pointer; text-decoration: underline; opacity: 0.8; }
+
+    /* =========================================
+       7. SIDEBAR MENU
+       ========================================= */
+    #sidebar-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; opacity: 0; transition: opacity 0.3s; }
+    #sidebar { position: absolute; top: 0; left: -280px; width: 280px; height: 100%; background: var(--bg-card); z-index: 160; box-shadow: 2px 0 10px rgba(0,0,0,0.2); transition: left 0.3s ease; display: flex; flex-direction: column; }
+    #sidebar.open { left: 0; }
+    .sidebar-header { background: var(--primary); color: white; padding: 30px 20px; display: flex; flex-direction: column; align-items: flex-start; }
+    .user-avatar { font-size: 60px; margin-bottom: 10px; }
+    .sidebar-username { font-size: 20px; font-weight: bold; }
+    .sidebar-info { font-size: 12px; opacity: 0.8; margin-top: 5px; }
+    .sidebar-menu { flex: 1; overflow-y: auto; padding: 10px 0; }
+    .menu-item { padding: 15px 20px; display: flex; align-items: center; gap: 15px; cursor: pointer; color: var(--text-main); font-weight: 500; }
+    .menu-item:active { background: var(--shadow); }
+    .menu-item .material-icons { color: var(--text-sec); }
+    .menu-header { font-size: 12px; color: var(--text-sec); padding: 15px 20px 5px; text-transform: uppercase; font-weight: bold; }
+
+    /* =========================================
+       8. LIST ITEM
+       ========================================= */
+    .list-item { background: var(--bg-card); border-bottom: 1px solid var(--shadow); display: flex; padding: 15px; gap: 15px; cursor: pointer; align-items: center; }
+    .date-box { width: 50px; height: 50px; background: var(--accent); display: flex; flex-direction: column; text-align: center; justify-content: center; border-radius: 8px; flex-shrink: 0; color: var(--primary); }
+    .date-month { font-size: 10px; font-weight: bold; text-transform: uppercase; }
+    .date-day { font-size: 20px; font-weight: bold; line-height: 1; }
+    .content-box { flex: 1; overflow: hidden; }
+    .content-title { color: var(--primary); font-weight: bold; font-size: 16px; margin-bottom: 4px; }
+    .content-preview { color: var(--text-sec); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Tombol FAB */
+    .fab { position: absolute; bottom: 25px; right: 25px; background-color: var(--primary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 20; font-size: 30px; transition: background 0.3s; }
+
+    /* Loading */
+    #loading { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 300; justify-content: center; align-items: center; flex-direction: column; color: white; }
+    .spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
-  <div id="loading">
-    <div class="spinner"></div>
-    <p id="loading-text" style="margin-top:15px; font-weight:500;">Memproses...</p>
-  </div>
+  <div id="loading"><div class="spinner"></div><p id="loading-text" style="margin-top:15px; font-weight:500;">Memproses...</p></div>
 
   <div id="sidebar-overlay" onclick="closeSidebar()"></div>
   <div id="sidebar">
@@ -399,63 +232,50 @@
     </div>
     <div class="sidebar-menu">
       <div class="menu-header">Tampilan</div>
-      <div class="menu-item" onclick="setTheme('pink')">
-        <span class="material-icons" style="color: #d81b60;">circle</span> Pink (Default)
-      </div>
-      <div class="menu-item" onclick="setTheme('blue')">
-        <span class="material-icons" style="color: #1e88e5;">circle</span> Biru Laut
-      </div>
-      <div class="menu-item" onclick="setTheme('green')">
-        <span class="material-icons" style="color: #43a047;">circle</span> Hijau Alam
-      </div>
-      <div class="menu-item" onclick="setTheme('dark')">
-        <span class="material-icons" style="color: #212121;">dark_mode</span> Dark Mode
-      </div>
-      
+      <div class="menu-item" onclick="setTheme('pink')"><span class="material-icons" style="color:#d81b60;">circle</span> Pink (Default)</div>
+      <div class="menu-item" onclick="setTheme('blue')"><span class="material-icons" style="color:#1e88e5;">circle</span> Biru Laut</div>
+      <div class="menu-item" onclick="setTheme('green')"><span class="material-icons" style="color:#43a047;">circle</span> Hijau Alam</div>
+      <div class="menu-item" onclick="setTheme('dark')"><span class="material-icons" style="color:#212121;">dark_mode</span> Dark Mode</div>
       <hr style="border:0; border-top:1px solid var(--shadow); margin:10px 0;">
-      
-      <div class="menu-item" onclick="logout()">
-        <span class="material-icons">logout</span> Keluar Akun
-      </div>
+      <div class="menu-item" onclick="logout()"><span class="material-icons">logout</span> Keluar Akun</div>
     </div>
   </div>
 
   <div id="view-auth">
     <div class="auth-title">Buku Harian</div>
     <div class="auth-subtitle">Catatan rahasia kehidupan kamu.</div>
-    
     <input type="text" id="auth-username" class="auth-input" placeholder="Username">
     <input type="password" id="auth-password" class="auth-input" placeholder="Password">
-    
     <button class="btn-auth" onclick="doLogin()">BUKA KUNCI</button>
     <div class="link-text" onclick="toggleAuthMode()" id="toggle-text">Belum punya akun? Buat Baru</div>
   </div>
 
   <div id="main-app">
-    <div id="view-list" style="display:block;">
+    
+    <div id="view-list" class="view-container" style="display:flex;"> 
       <div class="header">
         <span class="material-icons icon-btn" onclick="openSidebar()">menu</span>
         <h2>WriteDiary</h2>
         <span class="material-icons icon-btn" onclick="loadData()">refresh</span>
       </div>
-      <div id="diary-list-container"></div>
+      <div class="scroll-content-list">
+        <div id="diary-list-container"></div>
+      </div>
       <div class="fab" onclick="createNew()">+</div>
     </div>
 
-    <div id="view-write">
+    <div id="view-write" class="view-container" style="display:none;"> 
+      
       <div class="header" style="background: var(--primary); box-shadow: none;">
-        
         <span class="material-icons icon-btn" onclick="showListPage()">arrow_back</span>
-
         <h2 id="page-title">Catatan</h2>
-        
         <div class="header-actions">
           <span id="btn-delete" class="material-icons icon-btn" onclick="deleteData()" style="display:none; color: var(--danger);">delete</span>
           <span class="material-icons icon-btn" onclick="saveData()">check</span>
         </div>
       </div>
 
-      <div class="write-container">
+      <div class="static-controls">
         <div class="input-date-wrapper">
           <span class="material-icons">event</span>
           <input type="date" id="inputDate">
@@ -463,10 +283,14 @@
         <div class="card">
           <input type="text" id="inputJudul" placeholder="Judul Cerita...">
         </div>
+      </div>
+
+      <div class="scroll-content-paper">
         <div class="paper-container">
           <textarea id="inputIsi" placeholder="Tulis ceritamu di sini..."></textarea>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -474,19 +298,14 @@
     // URL Backend Anda
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGBobZLrDSdSrs_sp1q52_x67FKoq-rpBV8MWhPBI0mOMlgAeXSbkpeHKKFqIadP8F6g/exec";
 
-    // Variabel Global
     let currentUser = null; 
     let diaryData = [];
     let currentRowId = null;
     let isRegisterMode = false;
 
-    // Saat Aplikasi Dibuka
     window.onload = function() {
-      // 1. Cek Tema
       const savedTheme = localStorage.getItem('diaryTheme');
       if (savedTheme) { document.body.className = savedTheme; }
-      
-      // 2. Cek Login Otomatis
       const savedUser = localStorage.getItem('diaryUser');
       if (savedUser) {
           currentUser = savedUser;
@@ -497,142 +316,75 @@
       }
     };
 
-    // --- FUNGSI SIDEBAR & TEMA ---
-    function openSidebar() {
-      document.getElementById('sidebar').classList.add('open');
-      document.getElementById('sidebar-overlay').style.display = 'block';
-      setTimeout(() => { document.getElementById('sidebar-overlay').style.opacity = '1'; }, 10);
-    }
-    
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('sidebar-overlay').style.opacity = '0';
-      setTimeout(() => { document.getElementById('sidebar-overlay').style.display = 'none'; }, 300);
-    }
+    function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').style.display = 'block'; setTimeout(() => { document.getElementById('sidebar-overlay').style.opacity = '1'; }, 10); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').style.opacity = '0'; setTimeout(() => { document.getElementById('sidebar-overlay').style.display = 'none'; }, 300); }
+    function setTheme(n) { document.body.className = 'theme-' + n; localStorage.setItem('diaryTheme', 'theme-' + n); closeSidebar(); }
 
-    function setTheme(themeName) {
-      document.body.className = 'theme-' + themeName;
-      localStorage.setItem('diaryTheme', 'theme-' + themeName);
-      closeSidebar();
-    }
-
-    // --- FUNGSI LOGIN / REGISTER ---
     function toggleAuthMode() {
       isRegisterMode = !isRegisterMode;
       const btn = document.querySelector('.btn-auth');
       const txt = document.getElementById('toggle-text');
-      if(isRegisterMode) {
-        btn.innerText = "BUAT AKUN BARU"; 
-        txt.innerText = "Sudah punya akun? Login";
-        document.querySelector('.auth-subtitle').innerText = "Buat akun baru.";
-      } else {
-        btn.innerText = "BUKA KUNCI"; 
-        txt.innerText = "Belum punya akun? Buat Baru";
-        document.querySelector('.auth-subtitle').innerText = "Catatan rahasia kehidupan kamu.";
-      }
+      if(isRegisterMode) { btn.innerText = "BUAT AKUN BARU"; txt.innerText = "Sudah punya akun? Login"; document.querySelector('.auth-subtitle').innerText = "Buat akun baru."; } 
+      else { btn.innerText = "BUKA KUNCI"; txt.innerText = "Belum punya akun? Buat Baru"; document.querySelector('.auth-subtitle').innerText = "Catatan rahasia kehidupan kamu."; }
     }
 
     function doLogin() {
-      const u = document.getElementById('auth-username').value.trim();
-      const p = document.getElementById('auth-password').value.trim();
+      const u = document.getElementById('auth-username').value.trim(); const p = document.getElementById('auth-password').value.trim();
       if(!u || !p) { alert("Lengkapi data!"); return; }
-
       document.getElementById('loading').style.display = 'flex';
-      
-      fetch(SCRIPT_URL, {
-        method: 'POST', body: JSON.stringify({ action: isRegisterMode?"register":"login", username: u, password: p })
-      })
-      .then(res => res.json())
-      .then(response => {
+      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: isRegisterMode?"register":"login", username: u, password: p }) })
+      .then(res => res.json()).then(res => {
         document.getElementById('loading').style.display = 'none';
-        if (response.result === 'success') {
-          if(isRegisterMode) {
-            alert("Akun dibuat! Silakan login."); toggleAuthMode();
-            document.getElementById('auth-password').value = "";
-          } else {
-            currentUser = u;
-            localStorage.setItem('diaryUser', u);
-            document.getElementById('sidebar-name').innerText = u;
-            document.getElementById('view-auth').style.display = 'none';
-            document.getElementById('main-app').style.display = 'flex';
-            loadData();
-          }
-        } else { alert(response.message); }
-      })
-      .catch(err => { document.getElementById('loading').style.display = 'none'; alert("Gagal koneksi."); });
+        if (res.result === 'success') {
+          if(isRegisterMode) { alert("Akun dibuat! Silakan login."); toggleAuthMode(); document.getElementById('auth-password').value = ""; }
+          else { currentUser = u; localStorage.setItem('diaryUser', u); document.getElementById('sidebar-name').innerText = u; document.getElementById('view-auth').style.display = 'none'; document.getElementById('main-app').style.display = 'flex'; loadData(); }
+        } else { alert(res.message); }
+      }).catch(e => { document.getElementById('loading').style.display = 'none'; alert("Gagal koneksi."); });
     }
 
     function logout() {
-      if(confirm("Keluar dari akun?")) {
-        currentUser = null;
-        localStorage.removeItem('diaryUser');
-        closeSidebar();
-        document.getElementById('main-app').style.display = 'none';
-        document.getElementById('view-auth').style.display = 'flex';
-        document.getElementById('auth-password').value = "";
-        document.getElementById('auth-username').value = "";
-      }
+      if(confirm("Keluar dari akun?")) { currentUser = null; localStorage.removeItem('diaryUser'); closeSidebar(); document.getElementById('main-app').style.display = 'none'; document.getElementById('view-auth').style.display = 'flex'; document.getElementById('auth-password').value = ""; document.getElementById('auth-username').value = ""; }
     }
 
-    // --- FUNGSI CRUD (DATABASE) ---
     function loadData() {
       document.getElementById('loading').style.display = 'flex';
-      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: "baca", username: currentUser }) })
-      .then(res => res.json())
-      .then(res => {
-        document.getElementById('loading').style.display = 'none';
-        if (res.result === 'success') { diaryData = res.data; renderList(diaryData); }
-      })
-      .catch(e => document.getElementById('loading').style.display = 'none');
+      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: "baca", username: currentUser }) }).then(res => res.json()).then(res => {
+        document.getElementById('loading').style.display = 'none'; if (res.result === 'success') { diaryData = res.data; renderList(diaryData); }
+      }).catch(e => document.getElementById('loading').style.display = 'none');
     }
 
     function saveData() {
-      let tgl = document.getElementById('inputDate').value;
-      let jdl = document.getElementById('inputJudul').value;
-      let isi = document.getElementById('inputIsi').value;
+      let tgl = document.getElementById('inputDate').value; let jdl = document.getElementById('inputJudul').value; let isi = document.getElementById('inputIsi').value;
       if (!isi) { alert("Isi kosong!"); return; }
-
       document.getElementById('loading').style.display = 'flex';
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: currentRowId?"edit":"simpan", username: currentUser, row: currentRowId, tanggal: tgl, judul: jdl, isi: isi })
-      }).then(res => res.json()).then(res => {
-        document.getElementById('loading').style.display = 'none'; showListPage(); loadData();
-      }).catch(e => { document.getElementById('loading').style.display = 'none'; showListPage(); loadData(); });
+      fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: currentRowId?"edit":"simpan", username: currentUser, row: currentRowId, tanggal: tgl, judul: jdl, isi: isi }) })
+      .then(res => res.json()).then(res => { document.getElementById('loading').style.display = 'none'; showListPage(); loadData(); })
+      .catch(e => { document.getElementById('loading').style.display = 'none'; showListPage(); loadData(); });
     }
 
     function deleteData() {
       if (!confirm("Hapus catatan?")) return;
       document.getElementById('loading').style.display = 'flex';
       fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: "hapus", username: currentUser, row: currentRowId }) })
-      .then(res => res.json()).then(res => {
-        document.getElementById('loading').style.display = 'none'; showListPage(); loadData();
-      }).catch(e => { document.getElementById('loading').style.display = 'none'; showListPage(); loadData(); });
+      .then(res => res.json()).then(res => { document.getElementById('loading').style.display = 'none'; showListPage(); loadData(); })
+      .catch(e => { document.getElementById('loading').style.display = 'none'; showListPage(); loadData(); });
     }
 
-    // --- NAVIGASI & RENDER ---
     function renderList(data) {
       const c = document.getElementById('diary-list-container'); c.innerHTML = "";
       if (!data || data.length === 0) { c.innerHTML = '<div style="padding:50px 20px; text-align:center; opacity:0.5;">Belum ada catatan.</div>'; return; }
       data.forEach((item, i) => {
         let d = new Date(item.tanggal); let m = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
-        let html = `
-          <div class="list-item" onclick="openForEdit(${i})">
-            <div class="date-box"><div class="date-month">${m[d.getMonth()]||""}</div><div class="date-day">${d.getDate()||"-"}</div></div>
-            <div class="content-box"><div class="content-title">${item.judul}</div><div class="content-preview">${item.isi}</div></div>
-          </div>`;
+        let html = `<div class="list-item" onclick="openForEdit(${i})"><div class="date-box"><div class="date-month">${m[d.getMonth()]||""}</div><div class="date-day">${d.getDate()||"-"}</div></div><div class="content-box"><div class="content-title">${item.judul}</div><div class="content-preview">${item.isi}</div></div></div>`;
         c.innerHTML += html;
       });
     }
 
     function createNew() {
       currentRowId = null;
-      document.getElementById('btn-delete').style.display = 'none'; // Sembunyikan Hapus
-      document.getElementById('inputJudul').value = ""; 
-      document.getElementById('inputIsi').value = "";
+      document.getElementById('btn-delete').style.display = 'none'; 
+      document.getElementById('inputJudul').value = ""; document.getElementById('inputIsi').value = "";
       
-      // === FIX TANGGAL REAL-TIME ===
-      // Mengambil waktu lokal HP user
       const now = new Date();
       const y = now.getFullYear();
       const m = String(now.getMonth() + 1).padStart(2, '0');
@@ -644,29 +396,15 @@
 
     function openForEdit(i) {
       const item = diaryData[i]; currentRowId = item.row;
-      document.getElementById('btn-delete').style.display = 'block'; // Tampilkan Hapus
-      document.getElementById('inputJudul').value = item.judul; 
-      document.getElementById('inputIsi').value = item.isi;
-      
-      // Format tanggal untuk input type=date
-      let d = new Date(item.tanggal); 
-      let y = d.getFullYear(); 
-      let m = String(d.getMonth()+1).padStart(2,'0'); 
-      let day = String(d.getDate()).padStart(2,'0');
+      document.getElementById('btn-delete').style.display = 'block'; 
+      document.getElementById('inputJudul').value = item.judul; document.getElementById('inputIsi').value = item.isi;
+      let d = new Date(item.tanggal); let y=d.getFullYear(); let m=String(d.getMonth()+1).padStart(2,'0'); let day=String(d.getDate()).padStart(2,'0');
       document.getElementById('inputDate').value = isNaN(y)?new Date().toISOString().split('T')[0] : `${y}-${m}-${day}`;
-      
       showWritePage();
     }
 
-    function showWritePage() { 
-      document.getElementById('view-list').style.display='none'; 
-      document.getElementById('view-write').style.display='flex'; 
-    }
-    
-    function showListPage() { 
-      document.getElementById('view-write').style.display='none'; 
-      document.getElementById('view-list').style.display='block'; 
-    }
+    function showWritePage() { document.getElementById('view-list').style.display='none'; document.getElementById('view-write').style.display='flex'; }
+    function showListPage() { document.getElementById('view-write').style.display='none'; document.getElementById('view-list').style.display='flex'; }
   </script>
 </body>
 </html>
